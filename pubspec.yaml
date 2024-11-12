@@ -78,6 +78,12 @@ flutter:
     - family: RubikGlitch
       fonts:
         - asset: assets/fonts/RubikGlitch-Regular.ttf
+    - family: Mistral
+      fonts:
+        - asset: assets/fonts/Mistral-Regular.ttf
+    - family: NerkoOne
+      fonts:
+        - asset: assets/fonts/NerkoOne-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

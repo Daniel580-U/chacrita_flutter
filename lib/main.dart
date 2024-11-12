@@ -1,4 +1,5 @@
 
+import 'package:chacrita/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:chacrita/features/index/pages/index_page.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      routes: AppRoutes.getRoutes(),
       home: const IndexPage(),
     );
   }

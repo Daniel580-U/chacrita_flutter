@@ -50,9 +50,19 @@ class GuidePage extends StatelessWidget {
                   MediaQuery.of(context).size.height * 0.85, // 80% de la altura
               color: Colors.white,
               child: ListView.builder(
-                itemCount: 6, // Número de elementos en el listado
+                itemCount: 7, // Número de elementos en el listado
                 itemBuilder: (c, index) {
-                  if(index == 5) {
+                  if(index == 0) {
+                    return const Center(
+                      child:  Text('Quick Start Guide', style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'Mistral',
+                        letterSpacing: 0.6,
+                        color: Colors.black,
+                      ),),
+                    );
+                  }else if(index == 6) {
                     return Center(
                       child: TextButton( 
                         style: ButtonStyle(
@@ -64,7 +74,7 @@ class GuidePage extends StatelessWidget {
                           )),
                         ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LocationPermissionPage()));
+                          Navigator.of(context).pushNamed('/permission_location');
                         },
                         child: const Text('Next >',
                         style: TextStyle(
@@ -78,7 +88,7 @@ class GuidePage extends StatelessWidget {
                     );
                   }else{
                     return GuideListWidget(
-                      number: index+1,
+                      number: index,
                       text: 'Instruccion',
                     );
                     }
