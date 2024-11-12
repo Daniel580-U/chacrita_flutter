@@ -1,4 +1,4 @@
-import 'package:chacrita/features/chat/pages/chat_page.dart';
+import 'package:chacrita/features/main_features/chat/pages/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
