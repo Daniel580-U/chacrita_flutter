@@ -1,14 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 class RecordService {
-  final String apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-  final String apiUrl = "https://my-api.plantnet.org/v2/identify/all";
 
   Future<Map<String, dynamic>?> identifyPlant(File imageFile) async {
 
+    // Getting environment variables
+    String? apiUrl = dotenv.env['PLANTNET_ENDPOINT'];
+    String? apiKey = dotenv.env['PLANTNET_API_KEY'];
+
+    // Default config
     final url = Uri.parse('$apiUrl?include-related-images=false&no-reject=false&nb-results=10&lang=en&api-key=$apiKey');
 
     // Creating request

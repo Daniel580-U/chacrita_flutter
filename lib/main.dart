@@ -2,9 +2,11 @@
 import 'package:chacrita/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:chacrita/features/index/pages/index_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //import 'package:chacrita/lib/componente.dart';
-void main() {
+void main() async {
+  await dotenv.load(fileName: 'assets/.env');
   runApp(const MyApp());
 }
 
