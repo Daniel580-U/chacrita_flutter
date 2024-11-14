@@ -18,25 +18,15 @@ class _RecordPageState extends State<RecordPage> {
   String _resultText = 'Bienvenido a record';
 
   Future<void> _identifyPlant() async {
-    /*
     final byteData = await rootBundle.load('assets/img/plant.jpg');
     final tempDir = Directory.systemTemp;
     final tempFile = File('${tempDir.path}/plant.jpg');
     await tempFile.writeAsBytes(byteData.buffer.asUint8List());
-    //final File image = File('assets/img/plant.jpg');
     final result = await _recordService.identifyPlant(tempFile);
-    */
-    setState(() {
-      //_resultText = result != null ? result.toString() : 'Identificación fallida';
-      _resultText = 'Procesando...';
-    });
-
-    List<File> imageFiles = await _recordController.extractFrames();
 
     // Updating result state
     setState(() {
-      //_resultText = result != null ? result.toString() : 'Identificación fallida';
-      _resultText = 'Imágenes guardadas';
+      _resultText = result != null ? result.toString() : 'Identificación fallida';
     });
   }
 
