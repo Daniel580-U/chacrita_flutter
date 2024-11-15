@@ -58,7 +58,7 @@ class MainPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Acción del botón 1
-                        print("Botón 1 presionado");
+                        Navigator.of(context).pushNamed('/record');
                       },
                       child: const Text(
                         "Recorder",
@@ -77,7 +77,7 @@ class MainPage extends StatelessWidget {
                       onPressed: () {
                         // Acción del botón 2
                         
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => const ChatPage()));
+                      Navigator.of(context).pushNamed('/chat');
                       },
                       child: const Text("Ask the chat",style: TextStyle(
                           color: Colors.white, 
