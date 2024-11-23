@@ -12,7 +12,7 @@ class AppRoutes {
     static const String index = '/index';
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-    record :(context)=> const RecordPage(),
+    record :(context)=> RecordPage(),
     chat :(context)=> const ChatPage(),
     permissionLocation :(context)=> const LocationPermissionPage(),
     guide :(context)=> const GuidePage(),
