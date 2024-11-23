@@ -49,5 +49,8 @@
 	<string>We need your location for location purpose</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We need your location for location purpose</string>
+	<key>NSCameraUsageDescription</key>
+	<string>La aplicación necesita acceso a la cámara para capturar fotos.</string>
+
 </dict>
 </plist>

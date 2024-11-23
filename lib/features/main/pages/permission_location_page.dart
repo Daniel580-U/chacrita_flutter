@@ -31,8 +31,8 @@ class _LocationPermissionPageState extends State<LocationPermissionPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Location permission is required!')),
       );
-      //Navigator.popAndPushNamed(context,
-          //'/index'); //MaterialPageRoute(builder: (context) => const IndexPage()));
+      Navigator.pop(context, '/guide');
+      //Navigator.popAndPushNamed(context,'/guide'); 
     } else if (status.isPermanentlyDenied) {
       // Si el permiso es permanentemente denegado, redirige al usuario a la configuración
       openAppSettings();
