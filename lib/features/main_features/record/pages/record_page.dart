@@ -1,14 +1,14 @@
+
 import 'dart:io';
 
-import 'package:chacrita/features/main_features/record/controllers/record_controller.dart';
-import 'package:chacrita/features/main_features/record/services/record_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 
 class RecordPage extends StatefulWidget {
+  const RecordPage({super.key});
+
   @override
   _CaptureScreenState createState() => _CaptureScreenState();
 }
@@ -47,28 +47,6 @@ class _CaptureScreenState extends State<RecordPage> {
         _image = photo;
       });
     }
-  }
-
-  @override
-  _RecordPageState createState() => _RecordPageState();
-}
-
-class _RecordPageState extends State<RecordPage> {
-  final RecordService _recordService = RecordService();
-  final RecordController _recordController = RecordController();
-  String _resultText = 'Bienvenido a record';
-
-  Future<void> _identifyPlant() async {
-    final byteData = await rootBundle.load('assets/img/plant.jpg');
-    final tempDir = Directory.systemTemp;
-    final tempFile = File('${tempDir.path}/plant.jpg');
-    await tempFile.writeAsBytes(byteData.buffer.asUint8List());
-    final result = await _recordService.identifyPlant(tempFile);
-
-    // Updating result state
-    setState(() {
-      _resultText = result != null ? result.toString() : 'Identificación fallida';
-    });
   }
 
   @override
