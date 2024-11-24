@@ -60,7 +60,7 @@ class MainPage extends StatelessWidget {
                         Navigator.of(context).pushNamed('/record');
                       },
                       child: const Text(
-                        "Recorder",
+                        "CAMARA",
                         style: TextStyle(
                           color: Colors.white, 
                           fontSize: 24,
@@ -78,7 +78,7 @@ class MainPage extends StatelessWidget {
                         
                       Navigator.of(context).pushNamed('/chat');
                       },
-                      child: const Text("Ask the chat",style: TextStyle(
+                      child: const Text("CHAT",style: TextStyle(
                           color: Colors.white, 
                           fontSize: 24,
                           fontFamily: 'NerkoOne'
