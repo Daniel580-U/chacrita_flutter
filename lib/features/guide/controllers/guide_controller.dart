@@ -1,3 +1,3 @@
-class GuideController {
-  // Agrega lógica y controladores para guide
+class Controller {
+  // Agrega lógica y controladores para 
 }
