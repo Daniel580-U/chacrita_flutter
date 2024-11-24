@@ -25,57 +25,57 @@ class Converter {
 
   String summarizeWeather(Map<String, dynamic>? weatherData) {
     if (weatherData == null) {
-      return 'No weather data available.';
+      return 'No hay data disponible sobre el clima.';
     }
 
-    final location = weatherData['name'] ?? 'Unknown location';
-    final description = weatherData['weather']?[0]?['description'] ?? 'No description';
+    final location = weatherData['name'] ?? 'Posición desconocida';
+    final description = weatherData['weather']?[0]?['description'] ?? 'No hay descripción';
     final temp = weatherData['main']?['temp']?.toDouble();
     final feelsLike = weatherData['main']?['feels_like']?.toDouble();
     final humidity = weatherData['main']?['humidity']?.toInt();
     final pressure = weatherData['main']?['pressure']?.toInt();
     final windSpeed = weatherData['wind']?['speed']?.toDouble();
 
-    return 'Weather summary for $location:\n'
-        '- Condition: ${description[0].toUpperCase()}${description.substring(1)}\n'
-        '- Temperature: ${temp?.toStringAsFixed(1)}°K\n'
-        '- Feels like: ${feelsLike?.toStringAsFixed(1)}°K\n'
-        '- Humidity: $humidity%\n'
-        '- Pressure: $pressure hPa\n'
-        '- Wind speed: ${windSpeed?.toStringAsFixed(1)} m/s';
+    return 'Resumen del clima para $location:\n'
+        '- Condición: ${description[0].toUpperCase()}${description.substring(1)}\n'
+        '- Temperatura: ${temp?.toStringAsFixed(1)}°K\n'
+        '- Sensación térmica: ${feelsLike?.toStringAsFixed(1)}°K\n'
+        '- Humedad: $humidity%\n'
+        '- Presión: $pressure hPa\n'
+        '- Velocidad del viento: ${windSpeed?.toStringAsFixed(1)} m/s';
   }
 
   String summarizeForecast(Map<String, dynamic>? forecastData) {
     if (forecastData == null) {
-      return 'No forecast data available.';
+      return 'No hay data disponible sobre el pronóstico.';
     }
 
-    final cityName = forecastData['city']?['name'] ?? 'Unknown city';
-    final country = forecastData['city']?['country'] ?? 'Unknown country';
+    final cityName = forecastData['city']?['name'] ?? 'Ciudad desconocida';
+    final country = forecastData['city']?['country'] ?? 'País desconocido';
 
     final forecastList = forecastData['list'] as List<dynamic>? ?? [];
 
     if (forecastList.isEmpty) {
-      return 'No forecast data available.';
+      return 'No hay data disponible sobre el pronóstico.';
     }
 
-    String summary = 'Weather forecast for $cityName, $country:\n';
+    String summary = 'Pronóstico del clima para $cityName, $country:\n';
 
     for (final forecast in forecastList) {
       final dateTime = forecast['dt_txt'] as String?;
-      final description = forecast['weather']?[0]?['description'] ?? 'No description';
+      final description = forecast['weather']?[0]?['description'] ?? 'No hay descripción';
       final temp = forecast['main']?['temp']?.toDouble();
       final tempMin = forecast['main']?['temp_min']?.toDouble();
       final tempMax = forecast['main']?['temp_max']?.toDouble();
       final pop = forecast['pop']?.toDouble();
       final windSpeed = forecast['wind']?['speed']?.toDouble();
 
-      summary += 'Date and time: $dateTime\n'
-          '- Condition: ${description[0].toUpperCase()}${description.substring(1)}\n'
-          '- Temperature: ${temp?.toStringAsFixed(1)}°K\n'
-          '- Temp range: ${tempMin?.toStringAsFixed(1)}°K - ${tempMax?.toStringAsFixed(1)}°K\n'
-          '- Precipitation chance: ${(pop * 100)?.toStringAsFixed(0)}%\n'
-          '- Wind speed: ${windSpeed?.toStringAsFixed(1)} m/s';
+      summary += "Fecha y hora: $dateTime\n"
+          "- Condición: ${description[0].toUpperCase()}${description.substring(1)}\n"
+          "- Temperatura: ${temp?.toStringAsFixed(1)}°K\n"
+          "- Rango de temperatura: ${tempMin?.toStringAsFixed(1)}°K - ${tempMax?.toStringAsFixed(1)}°K\n"
+          "- Probabilidad de precipitación: ${(pop * 100)?.toStringAsFixed(0)}%\n"
+          "- Velocidad del viento: ${windSpeed?.toStringAsFixed(1)} m/s";
 
       // Getting just the first forecast
       break;
@@ -86,17 +86,17 @@ class Converter {
 
   String summarizeAirPollution(Map<String, dynamic>? airPollutionData) {
     if (airPollutionData == null) {
-      return 'No air pollution data available.';
+      return 'No hay data disponible sobre la contaminación del aire.';
     }
 
     final location = airPollutionData['coord'] != null
         ? 'Location: (${airPollutionData['coord']['lat']}, ${airPollutionData['coord']['lon']})'
-        : 'Unknown location';
+        : 'Ubicación desconocida';
 
     final pollutionList = airPollutionData['list'] as List<dynamic>? ?? [];
 
     if (pollutionList.isEmpty) {
-      return '$location\nNo pollution data available.';
+      return '$location\nNo hay data disponible sobre la contaminación del aire.';
     }
 
     final pollutionData = pollutionList[0];
@@ -105,15 +105,15 @@ class Converter {
     final components = pollutionData['components'] as Map<String, dynamic>? ?? {};
 
     return '$location\n'
-        'Air Quality Index (AQI): $aqi ($aqiDescription)\n'
-        '- CO (Carbon Monoxide): ${_getComponentAsDouble(components, 'co')?.toStringAsFixed(2)} µg/m³\n'
-        '- NO (Nitric Oxide): ${_getComponentAsDouble(components, 'no')?.toStringAsFixed(3)} µg/m³\n'
-        '- NO₂ (Nitrogen Dioxide): ${_getComponentAsDouble(components, 'no2')?.toStringAsFixed(3)} µg/m³\n'
-        '- O₃ (Ozone): ${_getComponentAsDouble(components, 'o3')?.toStringAsFixed(2)} µg/m³\n'
-        '- SO₂ (Sulfur Dioxide): ${_getComponentAsDouble(components, 'so2')?.toStringAsFixed(3)} µg/m³\n'
-        '- PM2.5 (Fine Particles): ${_getComponentAsDouble(components, 'pm2_5')?.toStringAsFixed(1)} µg/m³\n'
-        '- PM10 (Coarse Particles): ${_getComponentAsDouble(components, 'pm10')?.toStringAsFixed(3)} µg/m³\n'
-        '- NH₃ (Ammonia): ${_getComponentAsDouble(components, 'nh3')?.toStringAsFixed(3)} µg/m³';
+        'Índice de Calidad del Aire (ICA): $aqi ($aqiDescription)\n'
+        '- CO (Monóxido de Carbono): ${_getComponentAsDouble(components, 'co')?.toStringAsFixed(2)} µg/m³\n'
+        '- NO (Óxido Nítrico): ${_getComponentAsDouble(components, 'no')?.toStringAsFixed(3)} µg/m³\n'
+        '- NO₂ (Dióxido de Nitrógeno): ${_getComponentAsDouble(components, 'no2')?.toStringAsFixed(3)} µg/m³\n'
+        '- O₃ (Ozono): ${_getComponentAsDouble(components, 'o3')?.toStringAsFixed(2)} µg/m³\n'
+        '- SO₂ (Dióxido de Azufre): ${_getComponentAsDouble(components, 'so2')?.toStringAsFixed(3)} µg/m³\n'
+        '- PM2.5 (Partículas Finas): ${_getComponentAsDouble(components, 'pm2_5')?.toStringAsFixed(1)} µg/m³\n'
+        '- PM10 (Partículas Gruesas): ${_getComponentAsDouble(components, 'pm10')?.toStringAsFixed(3)} µg/m³\n'
+        '- NH₃ (Amoníaco): ${_getComponentAsDouble(components, 'nh3')?.toStringAsFixed(3)} µg/m³';
   }
 
   double? _getComponentAsDouble(Map<String, dynamic>? components, String component) {
