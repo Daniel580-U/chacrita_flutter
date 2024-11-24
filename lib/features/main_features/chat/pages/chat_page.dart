@@ -33,7 +33,7 @@ class ChatPage extends StatelessWidget {
               ),
             ),
             Text(
-              'What can I help you with?',
+              '¿Tienes algo en mente? Estoy aquí para ayudarte.',
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 14,
@@ -61,20 +61,21 @@ class ChatBody extends StatelessWidget {
   final List<Map<String, String>> messages = [
     {
       'text':
-          "Hello. Chakrita is a mobile application that help farmers make smarter decisions, optimize their resources, and most importantly, protect their production against climate challenges. This application is not just a tool, it's an ally for agricultural sustainability.",
+          "Hola. Chakrita es una aplicación móvil que ayuda a los agricultores a tomar decisiones más inteligentes, optimizar sus recursos y, lo más importante, proteger su producción frente a los desafíos climáticos. Esta aplicación no es solo una herramienta, es un aliado para la sostenibilidad agrícola.",
       'sender': 'bot',
     },
     {
       'text':
-          'I already sent you the photos of my tomato plant. What can you tell me about how to take care of it specifically?',
+          'Ya te envié las fotos de mi planta de tomate. ¿Qué me puedes decir sobre cómo cuidarla específicamente?',
       'sender': 'user',
     },
     {
       'text':
-          'Of course! Here is some specific care for your tomato plant:irrigation: Keep the soil moist, but avoid waterlogging. Tomatoes need constant watering, especially in hot weather.Sunlight: Place the plant in a location where it receives at least 6 hours of direct light per day to promote good growth. Nutrients: Add fertilizers rich in potassium and phosphorus to strengthen the plant and improve fruit production. Pest Control: Observe the leaves and stem regularly for signs of pests. Chakrita will send you alerts about common pests in your region. Protection against the weather: If bad weather is expected, such as heavy rain or extreme heat, we will notify you so you can take measures, such as sheltering or covering the plant.',
+          '¡Claro! Aquí tienes algunos cuidados específicos para tu planta de tomate: Riego: Mantén el suelo húmedo, pero evita el encharcamiento. Los tomates necesitan riego constante, especialmente en climas cálidos. Luz solar: Coloca la planta en un lugar donde reciba al menos 6 horas de luz directa al día para favorecer un buen crecimiento. Nutrientes: Agrega fertilizantes ricos en potasio y fósforo para fortalecer la planta y mejorar la producción de frutos. Control de plagas: Observa regularmente las hojas y el tallo en busca de signos de plagas. Chakrita te enviará alertas sobre las plagas comunes en tu región. Protección contra el clima: Si se esperan condiciones climáticas adversas, como lluvias intensas o calor extremo, te notificaremos para que puedas tomar medidas, como resguardar o cubrir la planta.',
       'sender': 'bot',
     },
   ];
+
 
   ChatBody({Key? key}) : super(key: key);
 
@@ -144,7 +145,7 @@ class ChatBody extends StatelessWidget {
                 
                 child: TextField(               
                   decoration: InputDecoration(
-                    hintText: "Write a message...",
+                    hintText: "Escribe algo...",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
