@@ -22,7 +22,7 @@ class ChatPage extends StatelessWidget {
         ),
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               'ChatBot',
               style: TextStyle(
@@ -52,31 +52,26 @@ class ChatPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ChatBody(),
+      body: const ChatBody(),
     );
   }
 }
 
-class ChatBody extends StatelessWidget {
+class ChatBody extends StatefulWidget {
+  const ChatBody({super.key});
+  @override
+  ChatBodyState createState() => ChatBodyState();
+}
+class ChatBodyState extends State<ChatBody> {
+  String newMessage = '';
   final List<Map<String, String>> messages = [
     {
       'text':
           "Hello. Chakrita is a mobile application that help farmers make smarter decisions, optimize their resources, and most importantly, protect their production against climate challenges. This application is not just a tool, it's an ally for agricultural sustainability.",
       'sender': 'bot',
     },
-    {
-      'text':
-          'I already sent you the photos of my tomato plant. What can you tell me about how to take care of it specifically?',
-      'sender': 'user',
-    },
-    {
-      'text':
-          'Of course! Here is some specific care for your tomato plant:irrigation: Keep the soil moist, but avoid waterlogging. Tomatoes need constant watering, especially in hot weather.Sunlight: Place the plant in a location where it receives at least 6 hours of direct light per day to promote good growth. Nutrients: Add fertilizers rich in potassium and phosphorus to strengthen the plant and improve fruit production. Pest Control: Observe the leaves and stem regularly for signs of pests. Chakrita will send you alerts about common pests in your region. Protection against the weather: If bad weather is expected, such as heavy rain or extreme heat, we will notify you so you can take measures, such as sheltering or covering the plant.',
-      'sender': 'bot',
-    },
   ];
-
-  ChatBody({Key? key}) : super(key: key);
+  final TextEditingController _textController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +105,7 @@ class ChatBody extends StatelessWidget {
                       bottomRight:
                           isUser ? const Radius.circular(20) : Radius.zero,
                     ),
-                    border: isUser ? Border.all(color: Color.fromRGBO(0, 122, 27, 0.83)) : null,
+                    border: isUser ? Border.all(color: const Color.fromRGBO(0, 122, 27, 0.83)) : null,
                   ),
                   child: Text(
                     message['text']!,
@@ -140,9 +135,9 @@ class ChatBody extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                
-                child: TextField(               
+              Expanded(                
+                child: TextField(  
+                  controller: _textController,      
                   decoration: InputDecoration(
                     hintText: "Write a message...",
                     border: OutlineInputBorder(
@@ -151,11 +146,32 @@ class ChatBody extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                   ),
+                  onChanged: (value) => {
+                    // Action to change state of variable newMessage
+                    setState(() {
+                       newMessage = value;
+                    }),
+                  },
+                  
                 ),
               ),
               IconButton(
                 icon: const Icon(Icons.send, color: Color.fromRGBO(0, 122, 27, 0.83)),
                 onPressed: () {
+                  
+                  if(newMessage.isEmpty) return;
+
+                  _textController.clear();
+                  setState(() {
+                    // Action to change state of variable newMessage
+                    messages.add({'text':  newMessage, 'sender': 'user'});
+                    //Action to call an API and process the message
+                    processMessage(newMessage);
+
+                    newMessage = '';
+                    
+                  });
+                  
                   // Action to send the message
                 },
               ),
@@ -164,5 +180,9 @@ class ChatBody extends StatelessWidget {
         ),
       ],
     );
+  }
+  
+  void processMessage(String newMessage) {
+    print(newMessage);
   }
 }
