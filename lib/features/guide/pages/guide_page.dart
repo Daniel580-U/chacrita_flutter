@@ -1,4 +1,5 @@
 
+import 'package:chacrita/app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:chacrita/features/guide/widgets/guide_list_widget.dart';
 
@@ -67,7 +68,7 @@ class GuidePage extends StatelessWidget {
                       child: TextButton( 
                         style: ButtonStyle(
                           alignment: Alignment.bottomCenter,
-                          backgroundColor: const WidgetStatePropertyAll(Color.fromRGBO(50, 176, 4, 1)),
+                          backgroundColor: const WidgetStatePropertyAll(AppColors.background),
                           padding: const WidgetStatePropertyAll( EdgeInsets.fromLTRB(24, 10.5, 24, 10.5)),
                           shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),

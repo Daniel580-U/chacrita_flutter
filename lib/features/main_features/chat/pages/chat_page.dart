@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chacrita/app/config/colors.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -45,7 +46,7 @@ class ChatPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.close,
-                color: Color.fromRGBO(0, 122, 27, 0.83)),
+                color: AppColors.primary),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -96,8 +97,8 @@ class ChatBodyState extends State<ChatBody> {
                   margin: EdgeInsets.fromLTRB(left, 4, right, 4),
                   decoration: BoxDecoration(
                     color: isUser
-                        ? Colors.white
-                        : const Color.fromRGBO(0, 122, 27, 0.83),
+                        ? AppColors.secondary
+                        : AppColors.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: isUser ? Radius.zero : const Radius.circular(20),
                       topRight: const Radius.circular(20),
@@ -105,7 +106,7 @@ class ChatBodyState extends State<ChatBody> {
                       bottomRight:
                           isUser ? const Radius.circular(20) : Radius.zero,
                     ),
-                    border: isUser ? Border.all(color: const Color.fromRGBO(0, 122, 27, 0.83)) : null,
+                    border: isUser ? Border.all(color: AppColors.secondary) : null,
                   ),
                   child: Text(
                     message['text']!,
@@ -126,7 +127,7 @@ class ChatBodyState extends State<ChatBody> {
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
                   
-                  backgroundColor: Color.fromRGBO(0, 122, 27, 0.83),
+                  backgroundColor: AppColors.primary,
                   child: IconButton(              
                     icon: const Icon(Icons.camera_alt, color: Colors.white),
                     onPressed: () {
@@ -156,10 +157,10 @@ class ChatBodyState extends State<ChatBody> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.send, color: Color.fromRGBO(0, 122, 27, 0.83)),
+                icon: const Icon(Icons.send, color: AppColors.primary),
                 onPressed: () {
                   
-                  if(newMessage.isEmpty) return;
+                  if(newMessage=='') return;
 
                   _textController.clear();
                   setState(() {
