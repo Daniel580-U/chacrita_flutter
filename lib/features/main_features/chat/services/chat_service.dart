@@ -25,15 +25,15 @@ class ChatService {
     // Default config
     final url = Uri.parse(endpoint);
 
-    // Building the messages
-    List<Map<String, String>> chatMessages = [
-      if (initialPrompt.isNotEmpty)
-        {'role': 'system', 'content': initialPrompt},
-      ...messages.map((e) => {'role': e['sender']!, 'content': e['text']!}),
-      {'role': 'user', 'content': message},
-    ];
-    print (chatMessages[1]);
-    print (chatMessages[2]);
+    List<Map<String, String>> chatMessages = [];
+
+    // Adding initial prompt
+    chatMessages.add({'role': 'system', 'content': initialPrompt});
+
+    // Adding messages
+    for (var i = 0; i < messages.length; i++) {
+      chatMessages.add({'role': messages[i]['sender']!, 'content': messages[i]['text']!});
+    }
     // Request body
     final body = jsonEncode({
       'model': model,

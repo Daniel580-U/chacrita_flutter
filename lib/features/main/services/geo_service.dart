@@ -9,7 +9,7 @@ class GeoService {
     String? apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
 
     // Default config
-    final url = Uri.parse('$apiUrl?lat=$lat&lon=$lan&appid=$apiKey');
+    final url = Uri.parse('$apiUrl?lat=$lat&lon=$lan&appid=$apiKey&lang=es');
 
     // Sending request
     final response = await http.get(url);

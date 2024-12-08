@@ -36,7 +36,7 @@ class Converter {
     final pressure = weatherData['main']?['pressure']?.toInt();
     final windSpeed = weatherData['wind']?['speed']?.toDouble();
 
-    return 'Resumen del clima para $location:\n'
+    return 'Resumen del clima actual del usuario que se encuentra en $location:\n'
         '- Condición: ${description[0].toUpperCase()}${description.substring(1)}\n'
         '- Temperatura: ${temp?.toStringAsFixed(1)}°K\n'
         '- Sensación térmica: ${feelsLike?.toStringAsFixed(1)}°K\n'
