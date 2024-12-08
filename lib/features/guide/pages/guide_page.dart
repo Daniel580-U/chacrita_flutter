@@ -55,7 +55,7 @@ class GuidePage extends StatelessWidget {
                 itemBuilder: (c, index) {
                   if(index == 0) {
                     return const Center(
-                      child:  Text('Quick Start Guide', style: TextStyle(
+                      child:  Text('Guia de inicio', style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.normal,
                         fontFamily: 'Mistral',
@@ -77,7 +77,7 @@ class GuidePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pushNamed('/permission_location');
                         },
-                        child: const Text('Next >',
+                        child: const Text('Siguiente >',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.normal,

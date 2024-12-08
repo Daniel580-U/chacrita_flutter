@@ -1,7 +1,7 @@
 
+import 'package:chacrita/splash_screen.dart';
 import 'package:chacrita/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:chacrita/features/index/pages/index_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //import 'package:chacrita/lib/componente.dart';
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: AppRoutes.getRoutes(),
-      home: const IndexPage(),
+      //home: const IndexPage(),
+      home: const SplashScreen(),
     );
   }
 }

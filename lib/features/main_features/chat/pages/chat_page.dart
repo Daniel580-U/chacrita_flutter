@@ -34,7 +34,7 @@ class ChatPage extends StatelessWidget {
               ),
             ),
             Text(
-              'What can I help you with?',
+              '¿Tienes algo en mente? Estoy aquí para ayudarte.',
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 14,
@@ -68,7 +68,7 @@ class ChatBodyState extends State<ChatBody> {
   final List<Map<String, String>> messages = [
     {
       'text':
-          "Hello. Chakrita is a mobile application that help farmers make smarter decisions, optimize their resources, and most importantly, protect their production against climate challenges. This application is not just a tool, it's an ally for agricultural sustainability.",
+          "Hola. Chakrita es una aplicación móvil que ayuda a los agricultores a tomar decisiones más inteligentes, optimizar sus recursos y, lo más importante, proteger su producción frente a los desafíos climáticos. Esta aplicación no es solo una herramienta, es un aliado para la sostenibilidad agrícola.",
       'sender': 'bot',
     },
   ];
@@ -140,7 +140,7 @@ class ChatBodyState extends State<ChatBody> {
                 child: TextField(  
                   controller: _textController,      
                   decoration: InputDecoration(
-                    hintText: "Write a message...",
+                    hintText: "Escribe algo...",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),

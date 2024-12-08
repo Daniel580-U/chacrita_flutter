@@ -42,7 +42,7 @@ class IndexPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    'WELCOME',
+                    'BIENVENIDO',
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.normal,
@@ -72,7 +72,7 @@ class IndexPage extends StatelessWidget {
                     Navigator.of(context).push(_createSecondRoute());
                   },
                   child: const Text(
-                    'GET STARTED',
+                    'EMPECEMOS',
                     style: TextStyle(
                       fontFamily: 'Abel',
                       fontSize: 16,
