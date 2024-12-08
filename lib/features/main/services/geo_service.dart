@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class GeoService {
-  Future<Map<String, dynamic>?> getWeatherRequest(double lat, double lan, String? apiUrl) async {
+  Future<Map<String, dynamic>?> getApiRequest(double lat, double lan, String? apiUrl) async {
     // Getting environment variables
     String? apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
 

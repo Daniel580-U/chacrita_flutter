@@ -3,11 +3,17 @@ import 'package:chacrita/splash_screen.dart';
 import 'package:chacrita/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import 'package:chacrita/provider.dart';
 
 //import 'package:chacrita/lib/componente.dart';
 void main() async {
   await dotenv.load(fileName: 'assets/.env');
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => GlobalState(),
+      child: const MyApp(),
+    ),);
 }
 
 class MyApp extends StatelessWidget {

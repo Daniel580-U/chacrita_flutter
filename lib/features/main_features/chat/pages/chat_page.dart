@@ -1,5 +1,11 @@
+import 'package:chacrita/features/main/controllers/transformer.dart';
+import 'package:chacrita/features/main_features/chat/widgets/chat_widget.dart';
+import 'package:chacrita/features/main_features/record/controllers/record_transformer.dart';
+import 'package:chacrita/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chacrita/app/config/colors.dart';
+import 'package:chacrita/features/main_features/chat/services/chat_service.dart';
+import 'package:provider/provider.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -66,13 +72,14 @@ class ChatBody extends StatefulWidget {
 class ChatBodyState extends State<ChatBody> {
   String newMessage = '';
   final List<Map<String, String>> messages = [
-    {
+    /*{
       'text':
           "Hola. Chakrita es una aplicación móvil que ayuda a los agricultores a tomar decisiones más inteligentes, optimizar sus recursos y, lo más importante, proteger su producción frente a los desafíos climáticos. Esta aplicación no es solo una herramienta, es un aliado para la sostenibilidad agrícola.",
-      'sender': 'bot',
-    },
+      'sender': 'system',
+    },*/
   ];
   final TextEditingController _textController = TextEditingController(text: "");
+  bool _isTyping = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +89,32 @@ class ChatBodyState extends State<ChatBody> {
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             padding: const EdgeInsets.all(16.0),
-            itemCount: messages.length,
+            itemCount: messages.length+(_isTyping?1:0),
             itemBuilder: (context, index) {
+              if (index == messages.length && _isTyping) {
+                return Align(
+                alignment:
+                     Alignment.centerLeft,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                  margin: const EdgeInsets.fromLTRB(0.0, 4, 100, 4),
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.only(
+                      topLeft:   Radius.circular(20),
+                      topRight:  Radius.circular(20),
+                      bottomLeft:  Radius.circular(20),
+                      bottomRight:
+                           Radius.zero,
+                    ),
+                    border:  null,
+                  ),
+                  child: TypingIndicator(),
+                ),
+              );
+                
+              }
               final message = messages[index];
               final isUser = message['sender'] == 'user';
               final left = isUser ? 100.0 : 0.0;
@@ -167,7 +198,7 @@ class ChatBodyState extends State<ChatBody> {
                     // Action to change state of variable newMessage
                     messages.add({'text':  newMessage, 'sender': 'user'});
                     //Action to call an API and process the message
-                    processMessage(newMessage);
+                    processMessage(newMessage,context);
 
                     newMessage = '';
                     
@@ -183,7 +214,29 @@ class ChatBodyState extends State<ChatBody> {
     );
   }
   
-  void processMessage(String newMessage) {
-    print(newMessage);
+  void processMessage(String newMessage,BuildContext context) {
+    setState(() {
+      _isTyping = true;
+    });
+    //2 contextos
+    final globalState = Provider.of<GlobalState>(context, listen: false);
+    String summarizeWeather= (Converter().summarize(globalState.apiWeather, globalState.apiForecast, globalState.apiAirPollution));
+    String summarizePlant= (RecordConverter().summarize(globalState.apiPhoto));
+    //mensajes lista
+    //mensaje
+    ChatService().chat(newMessage, messages, summarizePlant+ "\n"+summarizeWeather).then((value) {
+      if (value != null) {
+        setState(() {
+          messages.add({'text': value, 'sender': 'system'});
+        });
+      } else {
+        setState(() {
+          messages.add({'text': 'Lo siento, no puedo responder a esto. Por favor, haz otra pregunta.', 'sender': 'system'});
+        });
+      }
+      setState(() {
+      _isTyping = false;
+    });
+    });
   }
 }
