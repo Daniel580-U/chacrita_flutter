@@ -1,3 +1,4 @@
+import 'package:chacrita/app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:chacrita/features/guide/models/guide_model.dart';
 
@@ -70,7 +71,7 @@ class GuideListWidget extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(15),
               decoration: const BoxDecoration(
-                color: Color.fromRGBO(30, 111, 0, 1),
+                color: AppColors.primary, // Fondo verde
                 shape: BoxShape.circle, // Forma circular
                 boxShadow: [
                   BoxShadow(

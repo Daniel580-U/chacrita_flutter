@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chacrita/app/config/colors.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -22,7 +23,7 @@ class ChatPage extends StatelessWidget {
         ),
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               'ChatBot',
               style: TextStyle(
@@ -45,39 +46,33 @@ class ChatPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.close,
-                color: Color.fromRGBO(0, 122, 27, 0.83)),
+                color: AppColors.primary),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ],
       ),
-      body: ChatBody(),
+      body: const ChatBody(),
     );
   }
 }
 
-class ChatBody extends StatelessWidget {
+class ChatBody extends StatefulWidget {
+  const ChatBody({super.key});
+  @override
+  ChatBodyState createState() => ChatBodyState();
+}
+class ChatBodyState extends State<ChatBody> {
+  String newMessage = '';
   final List<Map<String, String>> messages = [
     {
       'text':
           "Hola. Chakrita es una aplicación móvil que ayuda a los agricultores a tomar decisiones más inteligentes, optimizar sus recursos y, lo más importante, proteger su producción frente a los desafíos climáticos. Esta aplicación no es solo una herramienta, es un aliado para la sostenibilidad agrícola.",
       'sender': 'bot',
     },
-    {
-      'text':
-          'Ya te envié las fotos de mi planta de tomate. ¿Qué me puedes decir sobre cómo cuidarla específicamente?',
-      'sender': 'user',
-    },
-    {
-      'text':
-          '¡Claro! Aquí tienes algunos cuidados específicos para tu planta de tomate: Riego: Mantén el suelo húmedo, pero evita el encharcamiento. Los tomates necesitan riego constante, especialmente en climas cálidos. Luz solar: Coloca la planta en un lugar donde reciba al menos 6 horas de luz directa al día para favorecer un buen crecimiento. Nutrientes: Agrega fertilizantes ricos en potasio y fósforo para fortalecer la planta y mejorar la producción de frutos. Control de plagas: Observa regularmente las hojas y el tallo en busca de signos de plagas. Chakrita te enviará alertas sobre las plagas comunes en tu región. Protección contra el clima: Si se esperan condiciones climáticas adversas, como lluvias intensas o calor extremo, te notificaremos para que puedas tomar medidas, como resguardar o cubrir la planta.',
-      'sender': 'bot',
-    },
   ];
-
-
-  ChatBody({Key? key}) : super(key: key);
+  final TextEditingController _textController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +97,8 @@ class ChatBody extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(left, 4, right, 4),
                   decoration: BoxDecoration(
                     color: isUser
-                        ? Colors.white
-                        : const Color.fromRGBO(0, 122, 27, 0.83),
+                        ? AppColors.secondary
+                        : AppColors.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: isUser ? Radius.zero : const Radius.circular(20),
                       topRight: const Radius.circular(20),
@@ -111,7 +106,7 @@ class ChatBody extends StatelessWidget {
                       bottomRight:
                           isUser ? const Radius.circular(20) : Radius.zero,
                     ),
-                    border: isUser ? Border.all(color: Color.fromRGBO(0, 122, 27, 0.83)) : null,
+                    border: isUser ? Border.all(color: AppColors.secondary) : null,
                   ),
                   child: Text(
                     message['text']!,
@@ -132,7 +127,7 @@ class ChatBody extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
                   
-                  backgroundColor: Color.fromRGBO(0, 122, 27, 0.83),
+                  backgroundColor: AppColors.primary,
                   child: IconButton(              
                     icon: const Icon(Icons.camera_alt, color: Colors.white),
                     onPressed: () {
@@ -141,9 +136,9 @@ class ChatBody extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                
-                child: TextField(               
+              Expanded(                
+                child: TextField(  
+                  controller: _textController,      
                   decoration: InputDecoration(
                     hintText: "Escribe algo...",
                     border: OutlineInputBorder(
@@ -152,11 +147,32 @@ class ChatBody extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                   ),
+                  onChanged: (value) => {
+                    // Action to change state of variable newMessage
+                    setState(() {
+                       newMessage = value;
+                    }),
+                  },
+                  
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.send, color: Color.fromRGBO(0, 122, 27, 0.83)),
+                icon: const Icon(Icons.send, color: AppColors.primary),
                 onPressed: () {
+                  
+                  if(newMessage=='') return;
+
+                  _textController.clear();
+                  setState(() {
+                    // Action to change state of variable newMessage
+                    messages.add({'text':  newMessage, 'sender': 'user'});
+                    //Action to call an API and process the message
+                    processMessage(newMessage);
+
+                    newMessage = '';
+                    
+                  });
+                  
                   // Action to send the message
                 },
               ),
@@ -165,5 +181,9 @@ class ChatBody extends StatelessWidget {
         ),
       ],
     );
+  }
+  
+  void processMessage(String newMessage) {
+    print(newMessage);
   }
 }
