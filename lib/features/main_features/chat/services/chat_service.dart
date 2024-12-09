@@ -4,9 +4,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class ChatService {
-  Future<Map<String, dynamic>?> chat(
+  Future<String?> chat(
       String message,
-      List<Pair<String, String>> messages,
+      List<Map<String, String>> messages,
       String context
       ) async{
     // Getting environment variables
@@ -14,8 +14,9 @@ class ChatService {
     String? endpoint = dotenv.env['HUGGING_FACE_ENDPOINT'];
     String? model = dotenv.env['HUGGING_FACE_MODEL'];
     String? initialPrompt = dotenv.env['HUGGING_FACE_INITIAL_PROMPT'];
-
+    //print(context);
     if (apiKey == null || endpoint == null || model == null || initialPrompt == null) {
+      print("Error: No se encontraron las variables de entorno necesarias.");
       return null;
     }
     initialPrompt += '\n$context';
@@ -24,14 +25,15 @@ class ChatService {
     // Default config
     final url = Uri.parse(endpoint);
 
-    // Building the messages
-    List<Map<String, String>> chatMessages = [
-      if (initialPrompt.isNotEmpty)
-        {'role': 'system', 'content': initialPrompt},
-      ...messages.map((pair) => {'role': pair.first, 'content': pair.second}),
-      {'role': 'user', 'content': message},
-    ];
+    List<Map<String, String>> chatMessages = [];
 
+    // Adding initial prompt
+    chatMessages.add({'role': 'system', 'content': initialPrompt});
+
+    // Adding messages
+    for (var i = 0; i < messages.length; i++) {
+      chatMessages.add({'role': messages[i]['sender']!, 'content': messages[i]['text']!});
+    }
     // Request body
     final body = jsonEncode({
       'model': model,
@@ -54,7 +56,8 @@ class ChatService {
       if (response.statusCode == 200) {
         final decodedBody = utf8.decode(response.bodyBytes);
         final jsonResponse = jsonDecode(decodedBody);
-        return jsonResponse;
+        String content = jsonResponse['choices'][0]['message']['content'];
+        return content;
       } else {
         print("Error en la respuesta: ${response.statusCode}");
         print("Cuerpo de respuesta: ${response.body}");

@@ -18,7 +18,7 @@ class RecordConverter {
     final commonNames = species['commonNames']?.join(', ') ?? 'N/A';
     final family = species['family']?['scientificName'] ?? 'N/A';
 
-    return 'Información de la especie:\n'
+    return 'Información de la planta:\n'
         '- Nombre Científico: $scientificName\n'
         '- Nombres Comunes: $commonNames\n'
         '- Familia: $family';

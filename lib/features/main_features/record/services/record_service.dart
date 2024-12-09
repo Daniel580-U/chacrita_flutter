@@ -12,7 +12,7 @@ class RecordService {
     String? apiKey = dotenv.env['PLANTNET_API_KEY'];
 
     // Default config
-    final url = Uri.parse('$apiUrl?include-related-images=false&no-reject=false&nb-results=10&lang=en&api-key=$apiKey');
+    final url = Uri.parse('$apiUrl?include-related-images=false&no-reject=false&nb-results=10&lang=es&api-key=$apiKey');
 
     // Creating request
     final request = http.MultipartRequest('POST', url)
